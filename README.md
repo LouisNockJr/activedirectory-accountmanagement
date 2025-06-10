@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://i.imgur.com/Ua7udoS.png" alt="Traffic Examination"/>
+<img src="https://i.imgur.com/Pr4iPzt.png" alt="Microsoft Active Directory"/>
 </p>
 
 <h1>Active Directory: Users, Group Policy and Account Management</h1>
@@ -17,7 +17,7 @@ In this tutorial, we will create users, group policies and work on how to manage
 <h2>Operating Systems Used </h2>
 
 - Windows 10 (22H2)
-- Ubuntu Server 20.04
+- Windows Server 2022
 
 <h2>High-Level Steps</h2>
 
