@@ -183,14 +183,15 @@ You can now log in to the **Client** VM using standard (non-admin) domain user a
 <h2>Group Policy & Account Management</h2>
 
 <p>
-<img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="RSOP Window Showing Account Lockout Policy Applied"/>
+<img src="https://i.imgur.com/bNydYLB.png" height="80%" width="80%" alt="Screenshots of Various Points of Progress"/>
 </p>
 <p>
 
   ## Step 1: Configuring Account Lockout Threshold in Group Policy
   
-- Log in to the Domain Controller
-  - Log in as:  
+## Log in to the Domain Controller
+
+- Log in as:  
   `capsulecorporation.com\vegeta_admin`
 
 ## Open the Group Policy Management Console (GPMC)
@@ -202,87 +203,75 @@ You can now log in to the **Client** VM using standard (non-admin) domain user a
 - In the **Group Policy Management Console**, expand your domain.
 - Navigate to **Group Policy Objects**.
 - Right-click and choose:
-  - **New** to create a new GPO (e.g., `Account Lockout Policy`), or
-  - **Edit** to modify an existing one.
+  - **New** to create a *New GPO*, `Account Lockout Policy`
 
 ## Navigate to Account Lockout Policy Settings
 
 - In the Group Policy Editor:
-  - Computer Configuration >
-  - Policies >
-  - Windows Settings >
-  - Security Settings >
-  - Account Policies >
-  - Account Lockout Policy
+  - Expand **Computer Configuration** > **Policies** > **Windows Settings** > **Security Settings** > **Account Policies** > **Account Lockout Policy**
 
 ## Configure the Account Lockout Policy
 
-Edit the following three settings:
+- Edit the Properties of the following three settings:
 
-- **Account Lockout Duration**  
-  - Set to: `30 minutes`
+  - **Account Lockout Duration**  
+    - Set to: `30 minutes`
 
-- **Account Lockout Threshold**  
-  - Set to: `3 invalid attempts`
+  - Confirm **Account Lockout Threshold** is set to `5 invalid logon attempts`
 
-- **Reset Account Lockout Counter After**  
-  - Set to: `15 minutes`
+  - **Reset Account Lockout Counter After**  
+    - Set to: `15 minutes`
 
 > Ensure "Define this policy setting" is checked in each setting.
 
 ## Link the GPO to the Target OU
 
-- In GPMC, right-click the desired **OU** or **domain** (e.g., `_EMPLOYEES`) and choose:
+- In GPMC, right-click the desired **OU**, `_EMPLOYEES` and choose:
   - **Link an Existing GPO**
-  - Select your "Account Lockout Policy" GPO
+  - Select the "Account Lockout Policy" GPO
 
 ## Force Group Policy Update (Optional)
 
 - In **Powershell**, run the following command: *gpupdate /force* 
 
-## Verify the Policy
-
-- On a client system:
-  - **Run** *rsop.msc* to confirm the policy settings are applied
-
 </p>
 <br />
 
 <p>
-<img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<img src="https://i.imgur.com/UWHg36K.png" height="80%" width="80%" alt="Successful Login"/>
 </p>
 <p>
 
-  ## Step 2: Testing the Account Lokcout Policy
+  ## Step 2: Testing the Account Lockout Policy
   
 ## Select a Domain User
 
 - Use any existing user, such as:
-  - Username: `roshi`
+  - Username: `capsulecorporation.com\roshi`
 
 ## Attempt to Log in with Invalid Password
 
-- Try logging into the **Client** as `roshi` using the wrong password 6 times.
+- Try logging into the **Client** as `capsulecorporation.com\roshi` using the wrong password 6 times.
 - Observe that the account becomes locked out.
 
 ## Unlock the Account from the Domain Controller
 
-- Log into the **Domain Controller** as `vegeta_admin`:
+- Log into the **Domain Controller** as `capsulecorporation.com\vegeta_admin`:
 - Open **Active Directory Users and Computers** (ADUC).
-  - Locate `roshi` under the **_EMPLOYEES** OU.
+  - Locate `capsulecorporation.com\roshi=` under the **_EMPLOYEES** OU.
   - Right-click > **Properties** > **Account** tab.
   - Click **Unlock** account and reset the password (optional).
 
 ## Test Login Again
 
-- On the **Client**, log in as `roshi` with the correct password.
+- On the **Client**, log in as `capsulecorporation.com\roshi` with the correct password.
 - Confirm successful login.
 
 </p>
 <br />
 
 <p>
-<img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<img src="https://i.imgur.com/uUy1ArT.png" height="80%" width="80%" alt="Failed Login in Windows APP"/>
 </p>
 <p>
 
@@ -291,17 +280,17 @@ Edit the following three settings:
 ## Disable the Account
 
 - On the **Domain Controller**:
-  - Open **ADUC**, locate `roshi`, right-click > **Disable Account**.
+  - Open **ADUC**, locate `Master Roshi`, right-click > **Disable Account**.
 
 ## Attempt Login with Disabled Account
   
-- On the **Client** VM, attempt to log in as `roshi`.
+- On the **Client** VM, attempt to log in as `capsulecorporation.com\roshi`.
 - Observe the error message indicating the account is disabled.
 
 ## Re-enable the Account
 
 - Back in **ADUC** on the **Domain Controller**:
-  - Right-click `roshi` > **Enable Account**
+  - Right-click `Master Roshi` > **Enable Account**
   - Attempt to log in again with the correct password.
 
 </p>
