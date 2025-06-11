@@ -160,7 +160,8 @@ You can now log in to the **Client** VM using standard (non-admin) domain user a
    - **Username:** `gohan`  
    - **Password:** `Kakarrot88!`
 
-- Ensure that **Password never expires** and **User must change password at next logon** are unchecked for simplicity.
+> Ensure that **Password never expires** and **User must change password at next logon** are unchecked for simplicity.
+
 - Click **Finish** after each user is created.
 
 </p>
