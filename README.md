@@ -3,20 +3,21 @@
 </p>
 
 <h1>Active Directory: Users, Group Policy and Account Management</h1>
-In this tutorial, we will Install Active Directory, Create a Domain, Add a Client PC to the Domain, Create Domain Users, Add Group Policies and Manage Accounts. <br />
+In this tutorial, we’ll use a pre-configured Windows Server 2022 VM in Azure to set up Active Directory, create a domain, join a client PC, add domain users, configure an account lockout policy, and manage user accounts. <br />
 
 
 <h2>Environments and Technologies Used</h2>
 
-- Microsoft Azure (Virtual Machines/Compute)
-- Remote Desktop
+- Microsoft Azure for Virtual Machines
+- Remote Desktop: **Windows App** in [MacOS](https://apps.apple.com/us/app/windows-app/id1295203466?mt=12)
 - Active Directory Domain Services
 - Group Policy Management
+- Windows Powershell
 
 <h2>Operating Systems Used </h2>
 
-- Windows 10 (22H2)
-- Windows Server 2022
+- **Client**: Windows 10 (22H2)
+- **Domain Controller**: Windows Server 2022
 
 <h2>High-Level Steps</h2>
 
@@ -24,13 +25,13 @@ In this tutorial, we will Install Active Directory, Create a Domain, Add a Clien
 - Create a Domain Admin User within the Domain
 - Join Client VM to the Domain
 - Setup Remote Desktop for non-administrative users on the Client VM
-- Create additional users and attempt to log into the Client Vm with one of these users
-- Configure Group Policy for Acccount Lockout
+- Create additional, non-administrative, users and attempt to log into the Client VM with one of these users
+- Configure an Account Lockout Group Policy
 - Enable and Disable Accounts
 
 <h2>Setting Up Active Directory and the Domain Controller</h2>
 
-<p>
+<p align="center">
 <img src="https://i.imgur.com/eA0hj2M.png" height="80%" width="80%" alt="AD DS Promotion Wizard"/>
 </p>
 <p>
@@ -54,7 +55,7 @@ In this tutorial, we will Install Active Directory, Create a Domain, Add a Clien
 </p>
 <br />
 
-<p>
+<p align="center">
 <img src="https://i.imgur.com/dd9g5g0.png" height="80%" width="80%" alt="Add to Group"/>
 </p>
 <p>
@@ -79,15 +80,15 @@ In this tutorial, we will Install Active Directory, Create a Domain, Add a Clien
 </p>
 <br />
 
-<p>
+<p align="center">
 <img src="https://i.imgur.com/1v9gYWQ.png" height="80%" width="80%" alt="Windows Domain Join Prompt"/>
 </p>
 <p>
 
   ## Step 3: Join the Client VM to the Domain
   
-- RDP into the **Client** virtual machine using the local admin account (e.g., `Bulma`).
-- Right-click **Start > System** and click **Rename this PC (advanced)**.
+- RDP into the **Client** virtual machine using the local admin account, `Bulma`.
+- Right-click on **Start**, select **System** and click **Rename this PC (advanced)**.
   - Click **Change** to join a domain.
   - Enter the domain: `capsulecorporation.com`
   - Enter domain credentials when prompted:  
@@ -97,7 +98,7 @@ In this tutorial, we will Install Active Directory, Create a Domain, Add a Clien
 - RDP into the **Domain Controller** VM.
 - Open **Active Directory Users and Computers (ADUC)** and verify the **Client** VM appears under **Computers**.
 - Create a new Organizational Unit (OU) named `_CLIENTS`.
-- Drag the **Client** VM from **Computers** into the `_CLIENTS` OU.
+- Drag the **Client** VM from **Computers** into the **_CLIENTS** OU.
 
 </p>
 <br />
@@ -105,7 +106,7 @@ In this tutorial, we will Install Active Directory, Create a Domain, Add a Clien
 
 <h2>Setting Up Remote Desktop and User Creation</h2>
 
-<p>
+<p align="center">
 <img src="https://i.imgur.com/ARcqAlZ.png" height="80%" width="80%" alt="Remote Desktop Settings"/>
 </p>
 <p>
@@ -130,7 +131,7 @@ You can now log in to the **Client** VM using standard (non-admin) domain user a
 </p>
 <br />
 
-<p>
+<p align="center">
 <img src="https://i.imgur.com/WAkG8V0.png" height="80%" width="80%" alt="ADUC"/>
 </p>
 <p>
@@ -165,7 +166,7 @@ You can now log in to the **Client** VM using standard (non-admin) domain user a
 </p>
 <br />
 
-<p>
+<p align="center">
 <img src="https://i.imgur.com/poBSIag.png" height="80%" width="80%" alt="Successful Login"/>
 </p>
 <p>
@@ -182,7 +183,7 @@ You can now log in to the **Client** VM using standard (non-admin) domain user a
 
 <h2>Group Policy & Account Management</h2>
 
-<p>
+<p align="center">
 <img src="https://i.imgur.com/bNydYLB.png" height="80%" width="80%" alt="Screenshots of Various Points of Progress"/>
 </p>
 <p>
@@ -200,7 +201,7 @@ You can now log in to the **Client** VM using standard (non-admin) domain user a
 
 ## Create or Edit a Group Policy Object (GPO)
 
-- In the **Group Policy Management Console**, expand your domain.
+- In the **Group Policy Management Console** (GPMC), expand your domain.
 - Navigate to **Group Policy Objects**.
 - Right-click and choose:
   - **New** to create a *New GPO*, `Account Lockout Policy`
@@ -232,12 +233,13 @@ You can now log in to the **Client** VM using standard (non-admin) domain user a
 
 ## Force Group Policy Update (Optional)
 
-- In **Powershell**, run the following command: *gpupdate /force* 
+- Right-click on **Start**, select **Windows Powershell (Admin)**
+  - Run the following command: *gpupdate /force* 
 
 </p>
 <br />
 
-<p>
+<p align="center">
 <img src="https://i.imgur.com/UWHg36K.png" height="80%" width="80%" alt="Successful Login"/>
 </p>
 <p>
@@ -258,7 +260,7 @@ You can now log in to the **Client** VM using standard (non-admin) domain user a
 
 - Log into the **Domain Controller** as `capsulecorporation.com\vegeta_admin`:
 - Open **Active Directory Users and Computers** (ADUC).
-  - Locate `capsulecorporation.com\roshi=` under the **_EMPLOYEES** OU.
+  - Locate `Master Roshi` under the **_EMPLOYEES** OU.
   - Right-click > **Properties** > **Account** tab.
   - Click **Unlock** account and reset the password (optional).
 
@@ -270,7 +272,7 @@ You can now log in to the **Client** VM using standard (non-admin) domain user a
 </p>
 <br />
 
-<p>
+<p align="center">
 <img src="https://i.imgur.com/uUy1ArT.png" height="80%" width="80%" alt="Failed Login in Windows APP"/>
 </p>
 <p>
@@ -280,11 +282,11 @@ You can now log in to the **Client** VM using standard (non-admin) domain user a
 ## Disable the Account
 
 - On the **Domain Controller**:
-  - Open **ADUC**, locate `Master Roshi`, right-click > **Disable Account**.
+  - Open **ADUC**, locate `Master Roshi` under the **_EMPLOYEES** OU, right-click > **Disable Account**.
 
 ## Attempt Login with Disabled Account
   
-- On the **Client** VM, attempt to log in as `capsulecorporation.com\roshi`.
+- Using RDP to the **Client** VM, attempt to log in as `capsulecorporation.com\roshi`.
 - Observe the error message indicating the account is disabled.
 
 ## Re-enable the Account
