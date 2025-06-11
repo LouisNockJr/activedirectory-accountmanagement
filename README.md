@@ -47,10 +47,12 @@ In this tutorial, we’ll use pre-configured Windows 10 and Windows Server 2022 
 -  Choose:
    - **Add a new forest**
    - Root domain name: `capsulecorporation.com`
-- Create a Directory Services Restore Mode (DSRM) password (can match the admin password).
+- Create a Directory Services Restore Mode (DSRM) password. (We will be matching the CapsuleCorpAdmin password, see below)
 - Complete the configuration and **restart** the VM.
-- After restart, log in as:  
-    `capsulecorporation.com\CapsuleCorpAdmin`
+- After restart, log in as:
+  - Username: `capsulecorporation.com\CapsuleCorpAdmin`
+  - Password: `TimeTravel92`
+    
 
 </p>
 <br />
@@ -73,9 +75,9 @@ In this tutorial, we’ll use pre-configured Windows 10 and Windows Server 2022 
 - Right-click the new user `vegeta_admin` > **Add to a group...**
    - Type `Domain Admins` and click **OK**.
 - Log out of the Domain Controller.
-- Log back in as:  
-   `capsulecorporation.com\vegeta_admin`
-- Use this account (`vegeta_admin`) as your **primary admin account** from this point forward.
+- Log back in as: `capsulecorporation.com\vegeta_admin`
+
+> Use this account as your **primary admin account** from this point forward.
    
 </p>
 <br />
@@ -87,7 +89,9 @@ In this tutorial, we’ll use pre-configured Windows 10 and Windows Server 2022 
 
   ## Step 3: Join the Client VM to the Domain
   
-- RDP into the **Client** virtual machine using the local admin account, `Bulma`.
+- RDP into the **Client** virtual machine using the local admin account:
+  - Username: `Bulma`
+  - Password: `Dragonball84`
 - Right-click on **Start**, select **System** and click **Rename this PC (advanced)**.
   - Click **Change** to join a domain.
   - Enter the domain: `capsulecorporation.com`
@@ -95,7 +99,7 @@ In this tutorial, we’ll use pre-configured Windows 10 and Windows Server 2022 
      - Username: `capsulecorporation.com\vegeta_admin`  
      - Password: `Sayonara89!`
 - Restart the computer when prompted.
-- RDP into the **Domain Controller** VM.
+- RDP into the **Domain Controller** VM using the `capsulecorporation.com\vegeta_admin` account.
 - Open **Active Directory Users and Computers (ADUC)** and verify the **Client** VM appears under **Computers**.
 - Create a new Organizational Unit (OU) named `_CLIENTS`.
 - Drag the **Client** VM from **Computers** into the **_CLIENTS** OU.
@@ -174,7 +178,7 @@ You can now log in to the **Client** VM using standard (non-admin) domain user a
 
   ## Step 3: Test Login with a Standard Domain User
   
-- On a separate system or using a Remote Desktop client, attempt to log in to **Client-1** as one of the newly created users. For example:
+- On a separate system or using a Remote Desktop client, attempt to log in to the **Client** VM as one of the newly created users. We will be using:
    - Username: `capsulecorporation.com\goku`
    - Password: `Dragonball84!`
 - Verify that login is successful and access is granted to the desktop environment.
@@ -193,12 +197,11 @@ You can now log in to the **Client** VM using standard (non-admin) domain user a
   
 ## Log in to the Domain Controller
 
-- Log in as:  
-  `capsulecorporation.com\vegeta_admin`
+- Log in as: `capsulecorporation.com\vegeta_admin`
 
 ## Open the Group Policy Management Console (GPMC)
 
-- Click **Start** and search for `gpmc.msc`, then press **Enter**.
+- Click **Start** and Search for `gpmc.msc`, then press **Enter**.
 
 ## Create or Edit a Group Policy Object (GPO)
 
@@ -214,12 +217,13 @@ You can now log in to the **Client** VM using standard (non-admin) domain user a
 
 ## Configure the Account Lockout Policy
 
-- Edit the Properties of the following three settings:
+- Edit the Properties of the three following settings:
 
   - **Account Lockout Duration**  
     - Set to: `30 minutes`
 
-  - Confirm **Account Lockout Threshold** is set to `5 invalid logon attempts`
+  - **Account Lockout Threshold**
+    - Set to `5 invalid logon attempts`
 
   - **Reset Account Lockout Counter After**  
     - Set to: `15 minutes`
