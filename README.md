@@ -3,7 +3,7 @@
 </p>
 
 <h1>Active Directory: Users, Group Policy and Account Management</h1>
-In this tutorial, we’ll use a pre-configured Windows Server 2022 VM in Azure to set up Active Directory, create a domain, join a client PC, add domain users, configure an account lockout policy, and manage user accounts. <br />
+In this tutorial, we’ll use pre-configured Windows 10 and Windows Server 2022 VMs in Azure to set up Active Directory, create a domain, join a client PC, add domain users, configure an account lockout policy, and manage user accounts. <br />
 
 
 <h2>Environments and Technologies Used</h2>
