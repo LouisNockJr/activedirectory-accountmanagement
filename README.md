@@ -39,6 +39,8 @@ In this tutorial, we’ll use pre-configured Windows 10 and Windows Server 2022 
   ## Step 1: Install Active Directory Domain Services and Promote to Domain Controller
   
 - Log into the **Domain Controller** virtual machine.
+  - Username: `CapsuleCorpAdmin`
+  - Password: `TimeTravel92`
 - Open **Server Manager**.
   - Click **Manage > Add Roles and Features**.
   - Select **Active Directory Domain Services**.
@@ -47,12 +49,9 @@ In this tutorial, we’ll use pre-configured Windows 10 and Windows Server 2022 
 -  Choose:
    - **Add a new forest**
    - Root domain name: `capsulecorporation.com`
-- Create a Directory Services Restore Mode (DSRM) password. (We will be matching the CapsuleCorpAdmin password, see below)
+- Create a Directory Services Restore Mode (DSRM) password. (We will be matching the CapsuleCorpAdmin password)
 - Complete the configuration and **restart** the VM.
-- After restart, log in as:
-  - Username: `capsulecorporation.com\CapsuleCorpAdmin`
-  - Password: `TimeTravel92`
-    
+- After restart, log back in using the new Domain username: `capsulecorporation.com/CapsuleCorpAdmin`
 
 </p>
 <br />
