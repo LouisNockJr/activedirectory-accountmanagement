@@ -16,7 +16,7 @@ In this tutorial, we’ll use pre-configured Windows 10 and Windows Server 2022 
 
 <h2>Operating Systems Used </h2>
 
-- **Client**: Windows 10 (22H2)
+- **Client**: Windows 10 Pro
 - **Domain Controller**: Windows Server 2022
 
 <h2>High-Level Steps</h2>
